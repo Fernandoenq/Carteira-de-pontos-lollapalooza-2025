@@ -8,7 +8,7 @@ const Carteirapontos = () => {
   const [transacoes, setTransacoes] = useState([]);
   const [saldoTotal, setSaldoTotal] = useState(0);
 
-  const API_URL = "https://sua-api.com/dados"; // Substitua pela URL correta da sua API
+  const API_URL = "http://18.231.158.211/"; // Confirme se esta URL está correta
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,10 +17,16 @@ const Carteirapontos = () => {
         const data = response.data;
 
         setNomeUsuario(data.nome);
-        setTransacoes(data.transacoes);
 
-        const total = data.transacoes.reduce((acc, transacao) => acc + transacao.pontos, 0);
-        setSaldoTotal(total);
+        // Calcular saldo acumulado para cada transação
+        let saldoAtual = 0;
+        const transacoesComSaldo = data.transacoes.map(transacao => {
+          saldoAtual += transacao.pontos;
+          return { ...transacao, pontosTotal: saldoAtual };
+        });
+
+        setTransacoes(transacoesComSaldo);
+        setSaldoTotal(saldoAtual);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error);
       }
@@ -43,6 +49,7 @@ const Carteirapontos = () => {
               <TableRow>
                 <TableCell><strong>Origem</strong></TableCell>
                 <TableCell><strong>Pontos</strong></TableCell>
+                <TableCell className="pontos-total"><strong>Pontos total</strong></TableCell>
                 <TableCell><strong>Horário</strong></TableCell>
               </TableRow>
             </TableHead>
@@ -53,6 +60,7 @@ const Carteirapontos = () => {
                   <TableCell className={transacao.pontos >= 0 ? "positivo" : "negativo"}>
                     {transacao.pontos}
                   </TableCell>
+                  <TableCell className="pontos-total">{transacao.pontosTotal}</TableCell>
                   <TableCell>{transacao.horario}</TableCell>
                 </TableRow>
               ))}

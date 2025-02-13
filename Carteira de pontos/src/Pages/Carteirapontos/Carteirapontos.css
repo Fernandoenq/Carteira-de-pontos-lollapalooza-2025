@@ -1,54 +1,11 @@
-/* Garantindo que o body ocupe toda a tela */
-html, body {
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-}
-
-/* Centralizando a carteirinha */
-.carteirinha-container {
-    width: 100%;
-    max-width: 400px;
-    min-height: 300px;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 40px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Ajuste da logo */
-.logo {
-    width: 100px;
-    display: block;
-    margin: 0 auto 10px;
-}
-
-/* Texto do cabeçalho */
-.carteirinha-title {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    color: black;
-}
-
-/* Tabela */
+/* Melhorando a aparência da tabela */
 .tabela-container {
     width: 100%;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     overflow: hidden;
     margin-top: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -56,16 +13,51 @@ table {
     border-collapse: collapse;
 }
 
+/* Ajustando a largura fixa para as colunas */
 th, td {
     padding: 12px;
     text-align: center;
     font-size: 16px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    white-space: nowrap; /* Impede que as palavras quebrem para a linha de baixo */
 }
 
-th {
-    background-color: rgba(0, 0, 0, 0.1);
+/* Definir largura fixa para "Pontos total" */
+.pontos-total {
+    min-width: 120px; /* Ajuste esse valor conforme necessário */
+    text-align: center;
     font-weight: bold;
+    background-color: rgba(0, 123, 255, 0.1); /* Azul suave */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Centralizando o título */
+.carteirinha-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+    width: 100%; /* Garante que ocupe toda a largura */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+/* Garante que o conteúdo da carteirinha esteja centralizado */
+.carteirinha-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Ajuste da logo */
+.logo {
+    width: 100px;
+    display: block;
+    margin: 0 auto 10px;
 }
 
 /* Cores para pontos positivos e negativos */
