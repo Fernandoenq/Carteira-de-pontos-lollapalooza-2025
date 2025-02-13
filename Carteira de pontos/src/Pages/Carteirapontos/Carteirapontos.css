@@ -1,88 +1,68 @@
-/* Melhorando a aparência da tabela */
-.tabela-container {
+/* 🔹 Ajustando a responsividade do container */
+.carteirinha-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 600px; /* 🔹 Corrigido */
     width: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 80vh; /* 🔹 Garantindo que não fique muito pequeno */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+/* 🔹 Ajustando a tabela para caber no mobile */
+.tabela-container {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 15px;
+    margin-top: 20px;
+    overflow-x: auto; /* 🔹 Scroll horizontal apenas se necessário */
+    display: flex;
+    justify-content: center; /* 🔹 Centralizando a tabela */
+}
+
+/* 🔹 Ajuste dos textos na tabela */
 table {
     width: 100%;
     border-collapse: collapse;
 }
 
-/* Ajustando a largura fixa para as colunas */
+/* 🔹 Ajustando o tamanho das células */
 th, td {
     padding: 12px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
+    white-space: nowrap; /* 🔹 Evita que os textos quebrem */
+}
+
+/* 🔹 Melhorando o layout da tabela */
+th {
+    background: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+td {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    white-space: nowrap; /* Impede que as palavras quebrem para a linha de baixo */
 }
 
-/* Definir largura fixa para "Pontos total" */
-.pontos-total {
-    min-width: 120px; /* Ajuste esse valor conforme necessário */
-    text-align: center;
-    font-weight: bold;
-    background-color: rgba(0, 123, 255, 0.1); /* Azul suave */
-    border-radius: 5px;
-    padding: 10px;
-}
-
-/* Centralizando o título */
-.carteirinha-title {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    color: black;
-    width: 100%; /* Garante que ocupe toda a largura */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-}
-
-/* Garante que o conteúdo da carteirinha esteja centralizado */
-.carteirinha-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-/* Ajuste da logo */
-.logo {
-    width: 100px;
-    display: block;
-    margin: 0 auto 10px;
-}
-
-/* Cores para pontos positivos e negativos */
-.positivo {
-    color: green;
-    font-weight: bold;
-}
-
-.negativo {
-    color: red;
-    font-weight: bold;
-}
-
-/* Botão de saldo */
+/* 🔹 Ajustando o botão de saldo */
 .saldo-btn {
     width: 100%;
+    max-width: 300px;
     height: 50px;
     background-color: #007BFF;
     border: none;
     outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: bold;
     color: white;
     margin-top: 20px;
     transition: all 0.3s ease;
@@ -90,4 +70,28 @@ th, td {
 
 .saldo-btn:hover {
     background-color: #0056b3;
+}
+
+/* 🔹 Responsividade para celulares menores */
+@media (max-width: 768px) {
+    .carteirinha-container {
+        max-width: 95%;
+        padding: 30px;
+        min-height: 90vh; /* 🔹 Ajusta melhor para telas menores */
+    }
+
+    .tabela-container {
+        padding: 10px;
+        overflow-x: auto;
+    }
+
+    th, td {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .saldo-btn {
+        font-size: 16px;
+        height: 45px;
+    }
 }
