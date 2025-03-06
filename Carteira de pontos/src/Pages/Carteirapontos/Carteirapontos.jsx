@@ -118,7 +118,7 @@ const Carteirapontos = () => {
               </>
             )}
           </CardContent>
-        </Card>
+        </Card> 
       </Grid>
     </Grid>
   );
