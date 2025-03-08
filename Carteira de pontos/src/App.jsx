@@ -1,13 +1,19 @@
+// src/App.jsx
 import React from "react";
-import Carteirapontos from "./Pages/Carteirapontos/Carteirapontos";
-import "./App.css";
-import backgroundImage from "./assets/Bradesco.webp.jpg"; // Importa a imagem corretamente
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CpfInput from "../src/Pages/CpfInput";
+import Carteirapontos from "./Pages/Carteirapontos";
+import "./style/Carteirapontos.css";
+import "./style/CpfInput.css"
 
 function App() {
   return (
-    <div className="app" style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <Carteirapontos />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<CpfInput />} />
+        <Route path="/carteira" element={<Carteirapontos />} />
+      </Routes>
+    </Router>
   );
 }
 

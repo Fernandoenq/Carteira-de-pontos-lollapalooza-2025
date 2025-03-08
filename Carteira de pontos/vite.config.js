@@ -1,7 +1,13 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  base: '/', // Garante que os caminhos estão corretos para o Nginx
+  build: {
+    outDir: 'dist', // Pasta onde os arquivos finais serão gerados
+  },
+  server: {
+    port: 3000, // Caso queira rodar localmente antes de subir
+  },
+});
