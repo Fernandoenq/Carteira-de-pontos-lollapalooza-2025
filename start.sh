@@ -40,22 +40,21 @@ EOF
 
 # 🔹 Testa e inicia o Nginx sem SSL
 sudo nginx -t
-sudo systemctl restart nginx
+sudo systemctl restart nginx || true  # Ignora erro se não rodar
 
-# 🔹 Espera alguns segundos para garantir que o site está online
+# 🔹 Aguarda alguns segundos para garantir que o site está online
 sleep 5
 
 # 🔹 Gerar o Certificado SSL via Certbot (somente se ainda não existir)
 if [ ! -f "/etc/letsencrypt/live/ca.picbrand.dev.br/fullchain.pem" ]; then
     echo "⚡ Gerando certificado SSL..."
     sudo certbot certonly --nginx -d ca.picbrand.dev.br --non-interactive --agree-tos -m seuemail@exemplo.com
-else
-    echo "✅ Certificado SSL já existe, pulando a geração."
 fi
 
-# 🔹 Confere se o Certificado foi gerado corretamente
+# 🔹 Confere novamente após um pequeno delay para garantir que o Certbot criou os arquivos
+sleep 3
 if [ ! -f "/etc/letsencrypt/live/ca.picbrand.dev.br/fullchain.pem" ]; then
-    echo "❌ ERRO: Certificado SSL não foi gerado. Abortando script."
+    echo "❌ ERRO: Certificado SSL não foi gerado. Algo deu errado."
     exit 1
 fi
 
