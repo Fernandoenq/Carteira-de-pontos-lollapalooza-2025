@@ -1,30 +1,30 @@
 #!/bin/bash
-set -e  # Faz o script parar caso algum comando falhe
+set -e  # Faz o script parar se algum comando falhar
 
 cd /home/ec2-user/Carteira-de-pontos-lollapalooza-2025  # Caminho do projeto
 
-# Atualiza pacotes e instala dependências
+# 🔹 Atualiza pacotes e instala dependências
 sudo yum update -y
 sudo yum install -y nginx certbot python3-certbot-nginx nodejs git
 
-# Garante que o Nginx esteja ativo
+# 🔹 Garante que o Nginx esteja ativo
 sudo systemctl enable nginx
-sudo systemctl start nginx
+sudo systemctl start nginx || true  # Ignora erro se o Nginx não iniciar
 
-# Garante que a pasta de build existe antes de copiar
+# 🔹 Garante que a pasta de build existe antes de copiar
 if [ ! -d "dist" ]; then
-    echo "A pasta 'dist/' não existe. Certifique-se de rodar 'npm run build' antes de executar o script."
+    echo "❌ ERRO: A pasta 'dist/' não existe. Certifique-se de rodar 'npm run build' antes de executar o script."
     exit 1
 fi
 
-# Copia os arquivos do React para a pasta pública do Nginx
+# 🔹 Copia os arquivos do React para a pasta pública do Nginx
 sudo rm -rf /usr/share/nginx/html/*  # Remove arquivos antigos para evitar conflitos
 sudo cp -r dist/* /usr/share/nginx/html/
 
-# Remove qualquer configuração antiga do Nginx
+# 🔹 Remove qualquer configuração antiga do Nginx
 sudo rm -f /etc/nginx/conf.d/*.conf
 
-# Configuração do Nginx
+# 🔹 Configuração temporária do Nginx (sem SSL, apenas HTTP)
 sudo tee /etc/nginx/conf.d/Carteira-de-pontos-lollapalooza-2025.conf > /dev/null <<EOF
 server {
     listen 80;
@@ -38,17 +38,28 @@ server {
 }
 EOF
 
-# Testa e reinicia o Nginx para garantir que está rodando sem SSL
+# 🔹 Testa e inicia o Nginx sem SSL
 sudo nginx -t
 sudo systemctl restart nginx
 
-# Aguarda alguns segundos para garantir que o domínio está ativo
+# 🔹 Espera alguns segundos para garantir que o site está online
 sleep 5
 
-# Gera o certificado SSL via Certbot
-sudo certbot --nginx -d ca.picbrand.dev.br --non-interactive --agree-tos -m seuemail@exemplo.com
+# 🔹 Gerar o Certificado SSL via Certbot (somente se ainda não existir)
+if [ ! -f "/etc/letsencrypt/live/ca.picbrand.dev.br/fullchain.pem" ]; then
+    echo "⚡ Gerando certificado SSL..."
+    sudo certbot certonly --nginx -d ca.picbrand.dev.br --non-interactive --agree-tos -m seuemail@exemplo.com
+else
+    echo "✅ Certificado SSL já existe, pulando a geração."
+fi
 
-# Atualiza a configuração do Nginx para HTTPS
+# 🔹 Confere se o Certificado foi gerado corretamente
+if [ ! -f "/etc/letsencrypt/live/ca.picbrand.dev.br/fullchain.pem" ]; then
+    echo "❌ ERRO: Certificado SSL não foi gerado. Abortando script."
+    exit 1
+fi
+
+# 🔹 Atualiza a configuração do Nginx para usar HTTPS agora que temos o SSL
 sudo tee /etc/nginx/conf.d/Carteira-de-pontos-lollapalooza-2025.conf > /dev/null <<EOF
 server {
     listen 80;
@@ -74,11 +85,11 @@ server {
 }
 EOF
 
-# Testa e reinicia o Nginx com SSL ativado
+# 🔹 Testa e reinicia o Nginx com SSL ativado
 sudo nginx -t
 sudo systemctl restart nginx
 
-# Configura renovação automática do certificado SSL
+# 🔹 Configura a renovação automática do certificado SSL
 echo "0 0 * * * certbot renew --quiet && systemctl restart nginx" | sudo crontab -
 
 echo "✅ Setup concluído! O React Vite está rodando com HTTPS."
