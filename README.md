@@ -1,26 +1,8 @@
-﻿# Carteira-de-pontos-
-# Carteira de Pontos Bradesco - Lollapalooza 2025
+# React + Vite
 
-Este projeto é uma carteira digital de pontos desenvolvida com **React.js** e **Material-UI (MUI)**, onde os usuários podem visualizar seu saldo de pontos e transações relacionadas ao evento **Lollapalooza 2025**.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🚀 Tecnologias Utilizadas
-
-- **React.js** (Vite)
-- **Material-UI (MUI)** para estilização
-- **Axios** para requisições HTTP
-- **CSS Responsivo**
----
-
-## 📂 Estrutura do Projeto
-
-📦 carteira-pontos-bradesco ┣ 📂 src ┃ ┣ 📂 components ┃ ┃ ┗ 📜 Carteirapontos.jsx ┃ ┣ 📂 styles ┃ ┃ ┗ 📜 Carteirapontos.css ┃ ┣ 📜 App.jsx ┃ ┣ 📜 main.jsx ┃ ┗ 📜 index.css ┣ 📜 package.json ┣ 📜 README.md ┗ 📜 vite.config.js
-
----
-
-## 🛠 Configuração do Projeto
-
-### 1️⃣ Clonar o repositório
-```sh
- git clone https://github.com/seu-usuario/carteira-pontos-bradesco.git
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
