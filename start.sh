@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ec2-user/react-app  # Caminho onde o projeto será armazenado na EC2
+cd /home/ec2-user/Carteira-de-pontos-lollapalooza-2025  # Caminho onde o projeto será armazenado na EC2
 
 # Atualiza pacotes e instala Nginx
 sudo yum update -y
@@ -9,7 +9,7 @@ sudo yum install -y nginx certbot python3-certbot-nginx
 sudo cp -r dist/* /usr/share/nginx/html/
 
 # Configuração do Nginx
-sudo tee /etc/nginx/conf.d/react-app.conf > /dev/null <<EOF
+sudo tee /etc/nginx/conf.d/Carteira-de-pontos-lollapalooza-2025.conf > /dev/null <<EOF
 server {
     listen 80;
     server_name ca.picbrand.dev.br;
